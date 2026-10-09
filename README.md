@@ -8,4 +8,4 @@ For more details make sure to read the wiki! https://github.com/JulienRogar/UVPi
 Changelog: https://github.com/JulienRogar/UVPinGlobal/wiki/Changelog
 
 ## How to use
-Requires Maya's default Python package
+_Requires Maya's default Python package_
