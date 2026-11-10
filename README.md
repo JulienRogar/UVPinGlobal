@@ -23,8 +23,11 @@ _Requires Maya's default Python package_
 -Paste bottom code in a Python tab inside Maya's script editor
 >import UVPin_Global\
 UVPin_Global.Load( multi_windows=True, keep_win_pref=False, tab=1 )
-<img width="631" height="327" alt="Script inside Script editor UI" src="https://github.com/user-attachments/assets/64c294a5-ed2b-427d-84fd-bf4a838e0358" />
 
+<img width="631" height="327" alt="Script inside Script editor UI" src="https://github.com/user-attachments/assets/64c294a5-ed2b-427d-84fd-bf4a838e0358" />\
+_Maya's script editor_
+\
+\
 -Select all the code and press the excecute button or drag and drop it on the shelf to set it as a shelf button to create a new instance/window at each press
 \
 \
