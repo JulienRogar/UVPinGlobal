@@ -1,7 +1,7 @@
 # UVPin Global
 Maya tool to add and manage uvPin systems
 
-Last version: 0 - tested in Maya 2024-2026
+Last version: 1.0.0 - tested in Maya 2024-2026
 
 For more details make sure to read the wiki! https://github.com/JulienRogar/UVPinGlobal/wiki
 
