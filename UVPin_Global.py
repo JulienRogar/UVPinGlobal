@@ -618,6 +618,7 @@ def _Pick_Cancel( self, self_idx:int ): #Stop picking
     print( "[INFO]: Picking cancelled!" )
 
 def _Clear_Layout( name:str ): #Clear a layout's content
+    """ Clear a layout's content """
     children = cmds.layout( name, query=True, childArray=True )
     if children is not None:
         cmds.deleteUI( children )
@@ -907,6 +908,7 @@ def _Tab_Change( self_idx:int, partial_empty=None ): #Apply changes specific to 
 #region - ** Tab Create **
 # uvPin
 def _Pick_UVPIN_Done_CRT( self_idx, skip_check=False ): #End function for uvPin pick
+    """ End function for uvPin pick """
     self_idx = int(self_idx)
     self = _Get_Instance( self_idx )
     if self.callback_hook is not None: #Prevent function called twice
@@ -1036,15 +1038,14 @@ def _Set_UVPIN( self, self_idx:int, pick=False, node_name=None, from_reload=Fals
         _Set_Start_Idx( self_idx, None, True, 0 )
 
 def _Set_UVPIN_Revert( self ): #Revert uvPin textField to data value
+    """ Revert uvPin textField to data value """
     old_value = self.ui_data[0]['uvpin']
     if old_value is None:
         old_value = 'None'
     cmds.textField( self.ui_items[0]['uvp_picker_txtField'], edit=True, text=old_value )
 
 def _Update_UVPIN_State( self, new_state:bool ): #Update uvPin state text if changed
-    """
-    Update uvPin state text if changed
-    """
+    """ Update uvPin state text if changed """
     if new_state and not self.ui_data[0]['uvpin_new']:
         cmds.text(
             self.ui_items[0]['uvpin_state_txtCtrl'], edit=True,
@@ -1063,9 +1064,7 @@ def _Update_UVPIN_State( self, new_state:bool ): #Update uvPin state text if cha
         self.ui_data[0]['uvpin_new'] = False
 
 def _Reload_UVPin( self_idx:int, partial_empty=None ): #Reload current uvPin to update changes or undo
-    """
-    Reload current uvPin to update changes or undo. If uvPin doesn't exist update state text
-    """
+    """ Reload current uvPin to update changes or undo. If uvPin doesn't exist update state text """
     self = _Get_Instance( self_idx )
     if self.ui_data[0]['uvpin'] is None:
         return
@@ -1153,6 +1152,7 @@ def _Build_GeoExtraLyt( self, self_idx:int, state:bool, partial_empty=None ): #B
         self.ui_items[0]['geo_type_opMenu'] = None
 
 def _Pick_Geo_Done( self_idx, skip_check=False ): #End function for geometry pick
+    """ End function for geometry pick """
     self_idx = int(self_idx)
     self = _Get_Instance( self_idx )
     if self.callback_hook is not None: #Prevent function called twice
@@ -1401,6 +1401,7 @@ def _Set_Geo( self_idx:int, geo_idx:int, pick=False, node_name=None, partial_emp
             _Build_AttrWindow( self, self_idx, node_name, attr_list_fixed, ("geometry output attribute","geometry",attr_advice) )
 
 def _AttrWin_GeoBttn( self_idx:int, value:str, geo_idx:int, partial_empty=None ): #Called by button on attr window to change original/deformed geometry attribute
+    """ Called by button on attr window to change original/deformed geometry attribute """
     self = _Get_Instance( self_idx )
 
     txtField = None
@@ -1432,6 +1433,7 @@ def _Update_GeoField( field_data:list ): #Update original and/or deformed geomet
             cmds.textField( c_data[1], edit=True, text=c_data[2], annotation=info_anno, statusBarMessage=info_status )
 
 def _Set_Geo_Type( self_idx:int, from_obj=False, value=None, partial_empty=None ): #Set geometry type value from dropdown
+    """ Set geometry type value from dropdown """
     self = _Get_Instance( self_idx )
     
     if self.ui_items[0]['geo_type_opMenu'] is not None:
@@ -1460,6 +1462,7 @@ def _Set_Geo_Type( self_idx:int, from_obj=False, value=None, partial_empty=None 
 
 # Object
 def _Set_Obj( self_idx:int, partial_empty=None ): #Set obj value from dropdown UI
+    """ Set obj value from dropdown UI """
     self = _Get_Instance( self_idx )
     
     old_option_idx = self.ui_data[0]['obj']
@@ -1671,6 +1674,7 @@ def _Set_MatchExtra( self_idx:int, idx:int, value, partial_empty=None ): #Set ma
         self.ui_data[0]['match_extra'] = value
 
 def _Pick_MatchOther_Done( self_idx, skip_check=False ): #End function for match other pick
+    """ End function for match other pick """
     self_idx = int(self_idx)
     self = _Get_Instance( self_idx )
     if self.callback_hook is not None: #Prevent function called twice
@@ -1685,6 +1689,7 @@ def _Pick_MatchOther_Done( self_idx, skip_check=False ): #End function for match
     self.pick_ui = None
 
 def _Set_MatchOther( self_idx:int, pick=False, node_name=None, partial_empty=None ): #Set match object value from textField and picker
+    """ Set match object value from textField and picker """
     self = _Get_Instance( self_idx )
 
     txtField = self.ui_items[0]['match_extra_ui'][0]
@@ -1759,6 +1764,7 @@ def _Set_MatchOther( self_idx:int, pick=False, node_name=None, partial_empty=Non
         _Build_AttrWindow( self, self_idx, node_name, attr_list_fixed, ("matrix output attribute","matrix",{'worldMatrix[0]'}) )
 
 def _AttrWin_MatchOtherBttn( self_idx:int, value:str, partial_empty=None ): #Called by button on attr window to change match other attribute
+    """ Called by button on attr window to change match other attribute """
     self = _Get_Instance( self_idx )
 
     self.ui_data[0]['match_extra'] = value
@@ -1770,6 +1776,7 @@ def _AttrWin_MatchOtherBttn( self_idx:int, value:str, partial_empty=None ): #Cal
     self.attrwin = None
 
 def _Update_MatchSel( self, self_idx:int ): #Update enable state of the match selection extra option UI
+    """ Update enable state of the match selection extra option UI """
     if self is None:
         self = _Get_Instance( self_idx )
     
@@ -1786,6 +1793,7 @@ def _Update_MatchSel( self, self_idx:int ): #Update enable state of the match se
 
 # Start index
 def _Set_Start_Idx( self_idx:int, arrow_idx=None, from_obj=False, value=None, partial_empty=None ): #Set start index
+    """ Set start index """
     self = _Get_Instance( self_idx )
     
     if not from_obj:
@@ -1803,12 +1811,14 @@ def _Set_Start_Idx( self_idx:int, arrow_idx=None, from_obj=False, value=None, pa
         cmds.intField( self.ui_items[0]['start_idx_intField'], edit=True, value=value )
 
 def _Update_Start_Idx( self_idx:int, uvpin:str ): #Update start index
+    """ Update start index """
     last_idx = cmds.getAttr( f'{uvpin}.coordinate', multiIndices=True ) #Get every uvp coordinate inputs
     last_idx = 0 if last_idx is None else last_idx[-1]+1
     _Set_Start_Idx( self_idx, None, True, last_idx )
 
 # Mirror
-def _Set_Mirror( self_idx:int, state:bool, partial_empty=None ):
+def _Set_Mirror( self_idx:int, state:bool, partial_empty=None ): #Toggle mirror value from UI
+    """ Toggle mirror value from UI """
     self = _Get_Instance( self_idx )
     self.ui_data[0]['mirror'] = state
 
@@ -1908,6 +1918,7 @@ def _Flip_Mirror_Names( self_idx:int, partial_empty=None ): #Flip mirror name so
     _Set_MirrorParam( self_idx, 6, True, old_source )
 
 def _Pick_Mirror_SpaceObj_Done( self_idx, skip_check=False ): #End function for mirror space object pick
+    """ End function for mirror space object pick """
     self_idx = int(self_idx)
     self = _Get_Instance( self_idx )
     if self.callback_hook is not None: #Prevent function called twice
@@ -1922,6 +1933,7 @@ def _Pick_Mirror_SpaceObj_Done( self_idx, skip_check=False ): #End function for 
     self.pick_ui = None
 
 def _Set_Mirror_SpaceObject( self_idx:int, pick=False, node_name=None, partial_empty=None ): #Set mirror space object value from textField and picker
+    """ Set mirror space object value from textField and picker """
     self = _Get_Instance( self_idx )
 
     txtField = self.ui_items[0]['mirror_space_picker_txtField']
@@ -1996,6 +2008,7 @@ def _Set_Mirror_SpaceObject( self_idx:int, pick=False, node_name=None, partial_e
         _Build_AttrWindow( self, self_idx, node_name, attr_list_fixed, ("matrix output attribute","matrix",{'worldMatrix[0]'}) )
 
 def _AttrWin_MirrorSpaceBttn( self_idx:int, value:str, partial_empty=None ): #Called by button on attr window to change mirror space object attribute
+    """ Called by button on attr window to change mirror space object attribute """
     self = _Get_Instance( self_idx )
 
     self.ui_data[0]['mirror_space'] = value
@@ -2007,6 +2020,7 @@ def _AttrWin_MirrorSpaceBttn( self_idx:int, value:str, partial_empty=None ): #Ca
     self.attrwin = None
 
 def _Refresh_UVPin( uvpin:str, co_idx:int ): #Try to refresh uvPin outputMatrix value by connecting and disconnecting a temporary transform to it
+    """ Try to refresh uvPin outputMatrix value by connecting and disconnecting a temporary transform to it """
     temp_obj = cmds.createNode( 'transform', skipSelect=True )
     cmds.connectAttr( f'{uvpin}.outputMatrix[{co_idx}]', f'{temp_obj}.offsetParentMatrix' )
     cmds.disconnectAttr( f'{uvpin}.outputMatrix[{co_idx}]', f'{temp_obj}.offsetParentMatrix' )
@@ -2805,6 +2819,7 @@ def _Mirror( self, self_idx:int, targets, uv_system, from_ui=False, partial_empt
 #region - ** Tab Display **
 # uvPin
 def _Clear_ScrollArea( self ): #Clear scroll area children items
+    """ Clear scroll area children items """
     if 'uvAttrFields' not in self.ui_items[1]:
         self.ui_items[1]['uvAttrFields'] = {}
     
@@ -2818,6 +2833,7 @@ def _Clear_ScrollArea( self ): #Clear scroll area children items
         cmds.deleteUI( path, layout=True )
 
 def _Get_InOutputs( node:str, attr_base:str, attr_list:list, get_destination:bool ): #Get input or output plug connections from asked attributes on node
+    """ Get input or output plug connections from asked attributes on node """
     i = 0
     for attr in attr_list:
         attr_info = cmds.connectionInfo( f'{node}.{attr_base}{attr}', destinationFromSource=True ) if get_destination else cmds.connectionInfo( f'{node}.{attr_base}{attr}', sourceFromDestination=True ) #Get connections
@@ -2836,6 +2852,7 @@ def _Get_InOutputs( node:str, attr_base:str, attr_list:list, get_destination:boo
     return attr_list
 
 def _Build_OutputsUI( self, idx:int, connections:list, parent:str, node:str ): #Build UI elements for a coordinate's output infos
+    """ Build UI elements for a coordinate's output infos """
     ui_info = (f"Coordinate[{idx}]'s ", " connected to: ")
     items = (('outputMatrix',), ('outputTranslate','sep','outputTranslateX','outputTranslateY','outputTranslateZ'))
     ui_clmns = (5, 5)
@@ -2934,6 +2951,7 @@ def _Check_CoordinateChange( self, self_idx:int, uvpin:str, init=False ): #Compa
         return has_changed
 
 def _Build_UVPUI( self, node:str, skip_checks=False, get_from_self=False ): #Get uvPin's data and generate UI items under scroll area
+    """ Get uvPin's data and generate UI items under scroll area """
     if not skip_checks:
         if not cmds.objExists( node ):
             cmds.error( f"[ISSUE]: Couldn't find node '{node}'!", noContext=True )
@@ -3062,6 +3080,7 @@ def _Build_UVPUI( self, node:str, skip_checks=False, get_from_self=False ): #Get
     _Check_CoordinateChange( self, self.SELF_IDX, node, True ) #Store compact indexes to later check changes not matching when UI was last built
 
 def _Pick_UVPIN_Done_DISP( self_idx, skip_check=False ): #End function for uvPin pick
+    """ End function for uvPin pick """
     self_idx = int(self_idx)
     self = _Get_Instance( self_idx )
     if self.callback_hook is not None: #Prevent function called twice
@@ -3080,19 +3099,23 @@ def _Pick_UVPIN_Done_DISP( self_idx, skip_check=False ): #End function for uvPin
 
 # Options
 def _Print_UV( attr:str, partial_empty=None ): #Print UV values from called coordinate attribute
+    """ Print UV values from called coordinate attribute """
     u = cmds.getAttr( f'{attr}U' )
     v = cmds.getAttr( f'{attr}V' )
     print( f"\n[INFO]: Exact UV values for '{attr.rsplit('.',1)[0]}':\n U: {u}\n V: {v}" )
 
 def _Print_OutTrnsl( attr:str, partial_empty=None ): #Print outputTranslate values from called coordinate attribute
+    """ Print outputTranslate values from called coordinate attribute """
     out_trnsl = cmds.getAttr( attr )[0]
     print( f"\n[INFO]: outputTranslate values for '{attr.rsplit('.',1)[0]}.coordinate{attr[-3:]}':\n X: {out_trnsl[0]}\n Y: {out_trnsl[1]}\n Z: {out_trnsl[2]}" )
 
 def _Print_OutMtx( attr:str, partial_empty=None ): #Print outputMatrix values from called coordinate attribute
+    """ Print outputMatrix values from called coordinate attribute """
     out_mtx = cmds.getAttr( attr )
     print( f"\n[INFO]: outputMatrix value for '{attr.rsplit('.',1)[0]}.coordinate{attr[-3:]}':\n {out_mtx}" )
 
 def _Remove_Coordinate( self, self_idx, node:str, uvp_idx:int, shift_next=False, partial_empty=None ): #Remove a specific coordinate on the uvPin node (actually shift connections and values unless they are locked)
+    """ Remove a specific coordinate on the uvPin node (actually shift connections and values unless they are locked) """
     if self is None:
         self = _Get_Instance( self_idx )
 
@@ -3244,9 +3267,11 @@ def _Remove_Coordinate( self, self_idx, node:str, uvp_idx:int, shift_next=False,
     _Set_Page( self, self_idx, page_current, True )
 
 def _Remove_Coordinate_Callback( self_idx:int, node:str, uvpidx:int,    drgCllBck_drgCtrl=None, drgCllBck_x=None, drgCllBck_y=None, drgCllBck_mod=None ): #Call remove coordinate
+    """ Call remove coordinate """
     cmds.evalDeferred( partial(_Remove_Coordinate, None, self_idx, node, uvpidx, True) ) #Call on deferred to prevent Maya crash
 
 def _Break_Connections( self, self_idx, uvp_attr:str, connections, field_ui, co_idx, field_idx, partial_empty=None ): #Break connection(s) between an uvPin attribute and other attributes
+    """ Break connection(s) between an uvPin attribute and other attributes """
     if self is None:
         self = _Get_Instance( self_idx )
 
@@ -3306,7 +3331,8 @@ def _Break_Connections( self, self_idx, uvp_attr:str, connections, field_ui, co_
             cmds.textField( field_ui, edit=True, text=f"{co}", annotation=info_anno, statusBarMessage=info_status )
 
 # Page
-def _Set_Page( self, self_idx:int, page_value=None, force_refresh=False, partial_empty=None ):
+def _Set_Page( self, self_idx:int, page_value=None, force_refresh=False, partial_empty=None ): #Set current page
+    """ Set current page """
     if self is None:
         self = _Get_Instance( self_idx )
 
@@ -3330,6 +3356,7 @@ def _Set_Page( self, self_idx:int, page_value=None, force_refresh=False, partial
         _Build_UVPUI( self, self.ui_data[1]['uvpin'] ) #Rebuild UI
 
 def _Set_PageBttn( self, self_idx:int, up:bool, partial_empty=None ): #Increment or decrement page number
+    """ Increment or decrement page number """
     if self is None:
         self = _Get_Instance( self_idx )
 
@@ -3343,6 +3370,7 @@ def _Set_PageBttn( self, self_idx:int, up:bool, partial_empty=None ): #Increment
     _Set_Page( self, self_idx, new_page ) #Call field's command
 
 def _Set_MaxPerPage( self, self_idx:int, partial_empty=None ): #Set maximum items per page
+    """ Set maximum items per page """
     if self is None:
         self = _Get_Instance( self_idx )
 
@@ -3362,6 +3390,7 @@ def _Set_MaxPerPage( self, self_idx:int, partial_empty=None ): #Set maximum item
         _Build_UVPUI( self, self.ui_data[1]['uvpin'] ) #Rebuild UI
 
 def _RefreshUI( self, self_idx, partial_empty=None ): #Refresh UI
+    """ Refresh UI """
     if type(self_idx) != int:
         self_idx = int(self_idx)
     if self is None:
@@ -3370,6 +3399,7 @@ def _RefreshUI( self, self_idx, partial_empty=None ): #Refresh UI
     _Set_Page( self, self_idx, self.ui_data[1]['page_current'], True )
 
 def _Refresh_Callback( self_idx:int, modifiers:int,    drgCllBck_drgCtrl=None, drgCllBck_x=None, drgCllBck_y=None, drgCllBck_mod=None ): #Call window resize
+    """ Call window resize """
     if modifiers == 1: #Shift + Middle mouse
         _ResetWidowSize( None, self_idx, 1 )
     elif modifiers == 2: #Ctrl + Middle mouse
@@ -3377,7 +3407,8 @@ def _Refresh_Callback( self_idx:int, modifiers:int,    drgCllBck_drgCtrl=None, d
     elif modifiers == 3: #Ctrl + Shift + Middle mouse
         _ResetWidowSize( None, self_idx, 3 )
 
-def _ResetWidowSize( self, self_idx:int, axis=None ): #Reset window"s size to default
+def _ResetWidowSize( self, self_idx:int, axis=None ): #Reset window's size to default
+    """ Reset window's size to default """
     if self is None:
         self = _Get_Instance( self_idx )
 
